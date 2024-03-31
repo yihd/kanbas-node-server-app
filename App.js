@@ -60,7 +60,7 @@ app.use(express.json());
 Lab5(app);
 Hello(app);
 Courses(app);
-Modules(app);
+ Modules(app);
 // SessionExercises(app);
 // Users(app);
 
