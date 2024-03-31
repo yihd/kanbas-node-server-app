@@ -40,12 +40,12 @@ import Lab5 from "./Lab.js";
 // import Users from "./Users/routes.js";
 
 const app = express();
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: "http://localhost:3000",
+//     credentials: true,
+//   })
+// );
 app.use(express.json());
 // app.use(
 //   session({
