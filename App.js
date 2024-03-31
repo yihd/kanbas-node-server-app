@@ -32,36 +32,24 @@
 import express from "express";
 import Hello from "./Hi.js";
 import Courses from "./courses/routes.js";
-import Modules from "./modules/routes.js";
+import ModuleRoutes from "./modules/routes.js";
 import cors from "cors";
 import Lab5 from "./Lab.js";
+import Assignments from "./assignments/routes.js";
 // import session from "express-session";
 // import SessionExercises from "./SessionExercises.js";
 // import Users from "./Users/routes.js";
 
-const app = express();
-// app.use(
-//   cors({
-//     origin: "http://localhost:3000",
-//     credentials: true,
-//   })
-// );
+const app = express()
+app.use(cors());
 app.use(express.json());
-// app.use(
-//   session({
-//     secret: "secret",
-//     resave: false,
-//     saveUninitialized: true,
-//     cookie: { secure: false },
-//   })
-// );
 
 
 Lab5(app);
 Hello(app);
 Courses(app);
- Modules(app);
+ModuleRoutes(app);
 // SessionExercises(app);
-// Users(app);
+Assignments(app);
 
 app.listen(process.env.PORT || 4000);

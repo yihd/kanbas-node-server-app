@@ -2,7 +2,7 @@ import Database from "../Database/index.js";
 import assignments from "../Database/assignments.js";
 import db from "../Database/index.js";
 
-export default function Courses(app) {
+export default function Assignments(app) {
   
   app.get("/api/assignments", (req, res) => {
     res.send(db.assignments);
