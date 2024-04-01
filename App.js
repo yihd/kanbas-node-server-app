@@ -31,11 +31,11 @@
 
 import express from "express";
 import Hello from "./Hi.js";
-import Courses from "./courses/routes.js";
-import ModuleRoutes from "./modules/routes.js";
+import Courses from './Kanbas/courses/routes.js';
+import ModuleRoutes from './Kanbas/modules/routes.js';
 import cors from "cors";
 import Lab5 from "./Lab.js";
-import Assignments from "./assignments/routes.js";
+import Assignments from "./Kanbas/assignments/routes.js";
 // import session from "express-session";
 // import SessionExercises from "./SessionExercises.js";
 // import Users from "./Users/routes.js";
