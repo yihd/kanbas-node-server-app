@@ -43,7 +43,12 @@ import Assignments from "./Kanbas/assignments/routes.js";
 const app = express()
 app.use(cors());
 app.use(express.json());
-
+app.use(
+    cors({
+        credentials: true,
+        origin: process.env.FRONTEND_URL
+    })
+);
 
 Lab5(app);
 Hello(app);
