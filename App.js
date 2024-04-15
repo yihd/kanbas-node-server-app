@@ -27,7 +27,7 @@ const sessionOptions = {
 };
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL,
+    origin: "https://661dac782738034b263f67cc--creative-dragon-e3962c.netlify.app",
     credentials: true,
   })
 );
