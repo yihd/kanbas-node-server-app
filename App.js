@@ -20,24 +20,27 @@ console.log(CONNECTION_STRING);
 mongoose.connect(CONNECTION_STRING);
 const app = express();
 app.use(express.urlencoded({ extended: true }));
-const sessionOptions = {
-  secret: "some secret",
-  saveUninitialized: false,
-  resave: false,
-};
+
 app.use(
   cors({
-    origin: "https://661dac782738034b263f67cc--creative-dragon-e3962c.netlify.app",
     credentials: true,
+    origin: process.env.FRONTEND_URL
   })
 );
+const sessionOptions = {
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+};
 if (process.env.NODE_ENV !== "development") {
   sessionOptions.proxy = true;
   sessionOptions.cookie = {
     sameSite: "none",
     secure: true,
+    domain: process.env.HTTP_SERVER_DOMAIN,
   };
 }
+
 
 app.use(session(sessionOptions));
 
