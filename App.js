@@ -13,8 +13,7 @@ import SessionExercises from "./SessionExercises.js";
 import Users from "./users/routes.js";
 import mongoose from "mongoose";
 
-// mongoose.connect("mongodb://local127.0.0.1:27017/Kanbas");
-// mongoose.connect("mongodb://127.0.0.1:27017/Kanbas");
+
 
 const CONNECTION_STRING = process.env.DB_CONNECTION_STRING;
 console.log(CONNECTION_STRING);
