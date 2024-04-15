@@ -24,6 +24,12 @@ const Lab5 = (app) => {
     app.get("/a5/welcome", (req, res) => {
       res.send("Welcome to Assignment 5");
     });
+    app.get("/poi/:uid", (req, res) => {
+      const uyt = req.params.uid;
+      const tre = "Hello " + uyt;
+      res.json(tre);
+   })
+   
     app.get("/a5/add/:a/:b", (req, res) => {
       const { a, b } = req.params;
       const sum = parseInt(a) + parseInt(b);
@@ -134,7 +140,7 @@ const Lab5 = (app) => {
     });
     
     
-    
+
   
   };
   export default Lab5;

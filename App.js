@@ -1,60 +1,65 @@
-// // App.js
-// import express from 'express';
-// import hello from './Hi.js';
-// import Lab5 from './Lab.js';
-// import cors from "cors";
-// // import CourseRoutes from "../public/Kanbas/Courses/routes.js";
-
-// const app = express();
-// // app.get('/hello', (req, res) => {res.send('Hello World!')})
-// app.use(cors());
-// app.use(express.json());
-// // CourseRoutes(app);
-// // Lab5(app);
-// hello(app);
-
-// app.listen(4000, () => {
-//   console.log('Server is running on http://localhost:4000');
-// });
-// import express from 'express'
-// import Hello from "./Hi.js"
-// import Lab5 from './Lab.js';
-// import cors from "cors";
-// import CourseRoutes from "./courses/routes.js"; // I changed here from ./Kanbas/courses/routes.js to without Kanbas
-// const app = express();
-// app.use(cors());
-// CourseRoutes(app);
-
-// Hello(app);
-// Lab5(app);
-// app.listen(4000)
-
+import "dotenv/config";
 import express from "express";
 import Hello from "./Hi.js";
-import Courses from './Kanbas/courses/routes.js';
+import Courses from './Courses/routes.js';
 import ModuleRoutes from './Kanbas/modules/routes.js';
 import cors from "cors";
 import Lab5 from "./Lab.js";
 import Assignments from "./Kanbas/assignments/routes.js";
-// import session from "express-session";
-// import SessionExercises from "./SessionExercises.js";
-// import Users from "./Users/routes.js";
+import session from "express-session";
+import SessionExercises from "./SessionExercises.js";
+// import SecurityController from "./SecurityController.js";
+// import UserRoutes from "./Kanbas/users/routes.js";
+import Users from "./users/routes.js";
+import mongoose from "mongoose";
 
-const app = express()
-app.use(cors());
-app.use(express.json());
+// mongoose.connect("mongodb://local127.0.0.1:27017/Kanbas");
+// mongoose.connect("mongodb://127.0.0.1:27017/Kanbas");
+
+const CONNECTION_STRING = process.env.DB_CONNECTION_STRING;
+console.log(CONNECTION_STRING);
+mongoose.connect(CONNECTION_STRING);
+const app = express();
+app.use(express.urlencoded({ extended: true }));
+const sessionOptions = {
+  secret: "some secret",
+  saveUninitialized: false,
+  resave: false,
+};
 app.use(
-    cors({
-      origin: "http://localhost:3000",
-      credentials: true,
-    })
-  );
+  cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+  })
+);
+if (process.env.NODE_ENV !== "development") {
+  sessionOptions.proxy = true;
+  sessionOptions.cookie = {
+    sameSite: "none",
+    secure: true,
+  };
+}
+
+app.use(session(sessionOptions));
+
+// app.use(
+//   session({
+//     secret: "secret",
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: { secure: false },
+//   })
+// );
 
 Lab5(app);
 Hello(app);
 Courses(app);
 ModuleRoutes(app);
-// SessionExercises(app);
+// SecurityController(app);
 Assignments(app);
-
-app.listen(process.env.PORT || 4000);
+SessionExercises(app);
+Users(app);
+const port = process.env.PORT || 4000;
+app.listen(port);
+// app.listen(4000);
+// app.listen(process.env.PORT || 4000);
