@@ -28,7 +28,7 @@ const sessionOptions = {
 app.use(
   cors({
     credentials: true,
-    origin: process.env.FRONTEND_URL
+    origin: 'http://localhost:3000',
   })
 );
 
