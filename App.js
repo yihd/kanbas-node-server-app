@@ -19,18 +19,27 @@ const CONNECTION_STRING = process.env.DB_CONNECTION_STRING;
 console.log(CONNECTION_STRING);
 mongoose.connect(CONNECTION_STRING);
 const app = express();
-app.use(express.urlencoded({ extended: true }));
-const sessionOptions = {
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false,
-};
 app.use(
   cors({
     credentials: true,
     origin: 'http://localhost:3000',
   })
 );
+const sessionOptions = {
+  secret: "any string",
+  resave: false,
+  saveUninitialized: false,
+};
+app.use(
+  session(sessionOptions)
+);
+
+// app.use(express.urlencoded({ extended: true }));
+
+// require('dotenv').config(); // This loads the .env file contents into process.env
+
+// console.log(process.env.NODE_ENV); // Accesses the NODE_ENV variable from process.env
+
 
 if (process.env.NODE_ENV !== "development") {
   sessionOptions.proxy = true;
