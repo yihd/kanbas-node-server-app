@@ -19,21 +19,18 @@ const CONNECTION_STRING = process.env.DB_CONNECTION_STRING
 // console.log(CONNECTION_STRING);
 mongoose.connect(CONNECTION_STRING);
 const app = express();
-app.use(
-  cors({
-    credentials: true,
-    origin: process.env.FRONTEND_URL
-  })
-);
+app.use(express.urlencoded({ extended: true }));
 const sessionOptions = {
   secret: "any string",
   resave: false,
   saveUninitialized: false,
 };
 app.use(
-  session(sessionOptions)
+  cors({
+    credentials: true,
+    origin: process.env.FRONTEND_URL
+  })
 );
-
 // app.use(express.urlencoded({ extended: true }));
 
 // require('dotenv').config(); // This loads the .env file contents into process.env
@@ -53,14 +50,6 @@ if (process.env.NODE_ENV !== "development") {
 
 app.use(session(sessionOptions));
 app.use(express.json());
-// app.use(
-//   session({
-//     secret: "secret",
-//     resave: false,
-//     saveUninitialized: true,
-//     cookie: { secure: false },
-//   })
-// );
 
 Lab5(app);
 Hello(app);
