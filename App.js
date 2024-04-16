@@ -20,31 +20,19 @@ const CONNECTION_STRING = process.env.DB_CONNECTION_STRING
 mongoose.connect(CONNECTION_STRING);
 const app = express();
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-
-// CORS settings
-app.use(cors({
-    credentials: true,
-    origin: (origin, callback) => {
-      if (process.env.NODE_ENV === 'development') {
-        callback(null, true); // Allow all origins in development
-      } else {
-        const allowedOrigins = [process.env.FRONTEND_URL]; // Only allow specific origin in production
-        if (allowedOrigins.indexOf(origin) !== -1) {
-          callback(null, true);
-        } else {
-          callback(new Error('Not allowed by CORS'));
-        }
-      }
-    }
-}));
-
-// Session settings
 const sessionOptions = {
-  secret: process.env.SESSION_SECRET,
+  secret: "any string",
   resave: false,
   saveUninitialized: false,
 };
+app.use(
+  cors({
+    credentials: true,
+    origin: process.env.FRONTEND_URL
+  })
+);
+
+
 
 if (process.env.NODE_ENV !== "development") {
   sessionOptions.proxy = true;
@@ -55,7 +43,9 @@ if (process.env.NODE_ENV !== "development") {
   };
 }
 
+
 app.use(session(sessionOptions));
+app.use(express.json());
 
 Lab5(app);
 Hello(app);
