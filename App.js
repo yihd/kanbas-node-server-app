@@ -17,7 +17,7 @@ import Users from "./users/routes.js";
 const CONNECTION_STRING = process.env.DB_CONNECTION_STRING;
 mongoose.connect(CONNECTION_STRING);
 const app = express();
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.urlencoded({ extended: true }));
 const sessionOptions = {
   secret: "some secret",
   saveUninitialized: false,
